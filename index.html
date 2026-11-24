@@ -408,6 +408,15 @@
   };
   var grid = document.getElementById('featured-grid');
 
+  // 맨 위 소개 문구: 디자인 링크(#design)로 들어왔을 때만 바꿈
+  var hero = document.getElementById('top');
+  var heroLines = hero ? [hero.children[0], hero.children[1]] : [];
+  var heroOrig = heroLines.map(function (e) { return e.innerHTML; });
+  var heroDesign = ['GRAPHIC DESIGN &amp; VIDEO PORTFOLIO', '그래픽 디자인 · 영상 편집자'];
+  function setHero(mode) {
+    heroLines.forEach(function (e, i) { e.innerHTML = mode === 'design' ? heroDesign[i] : heroOrig[i]; });
+  }
+
   function apply(mode) {
     if (!order[mode]) mode = 'all';
     groups.forEach(function (g) { g.el.classList.toggle('wgroup-hide', mode !== 'all' && g.mode !== mode); });
@@ -422,9 +431,11 @@
       apply(m);
     });
   });
-  function fromHash() { var h = location.hash.replace('#', ''); if (order[h]) apply(h); }
+  function fromHash() { var h = location.hash.replace('#', ''); if (order[h]) { setHero(h); apply(h); } }
   window.addEventListener('hashchange', fromHash);
-  apply(order[location.hash.replace('#', '')] ? location.hash.replace('#', '') : 'all');
+  var first = order[location.hash.replace('#', '')] ? location.hash.replace('#', '') : 'all';
+  setHero(first);
+  apply(first);
 })();
 </script>
 </body>
