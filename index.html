@@ -410,9 +410,12 @@
 
   // 맨 위 소개 문구: 디자인 링크(#design)로 들어왔을 때만 바꿈
   var hero = document.getElementById('top');
+  var aboutText = document.querySelector('#about .grid-2 > div:nth-child(2)');
   var heroLines = hero ? [hero.children[0], hero.children[1]] : [];
+  if (aboutText) heroLines.push(aboutText);
   var heroOrig = heroLines.map(function (e) { return e.innerHTML; });
-  var heroDesign = ['GRAPHIC DESIGN &amp; VIDEO PORTFOLIO', '그래픽 디자인 · 영상 편집자'];
+  var heroDesign = ['GRAPHIC DESIGN &amp; VIDEO PORTFOLIO', '그래픽 디자인 · 영상 편집자',
+    '영상 편집을 바탕으로 그래픽 디자인까지 함께 다루는 콘텐츠 제작자입니다. 직업훈련 과정에서 포토샵과 일러스트레이터를 익혔고, 생성형 AI로 행사 현수막과 쇼핑몰 상세페이지 시안을 기획한 뒤 결과물을 검토하며 원하는 방향이 나올 때까지 다듬었습니다. 빠르게 바뀌는 트렌드를 읽어 작업물에 자연스럽게 녹여내고, 아이디어 단계부터 완성된 결과물까지 일관된 완성도로 만들어내는 데 자신이 있습니다.'];
   function setHero(mode) {
     heroLines.forEach(function (e, i) { e.innerHTML = mode === 'design' ? heroDesign[i] : heroOrig[i]; });
   }
